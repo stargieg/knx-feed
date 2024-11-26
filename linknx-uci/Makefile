@@ -3,7 +3,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=linknx-uci
-PKG_VERSION:=0.3.2
+PKG_VERSION:=0.3.5
 PKG_RELEASE:=1
 
 PKG_BUILD_DIR:=$(BUILD_DIR)/$(PKG_NAME)-$(PKG_VERSION)
@@ -23,10 +23,13 @@ define Build/Compile
 endef
 
 define Package/linknx-uci/install
+	$(INSTALL_DIR) $(1)/etc/config
+	$(INSTALL_CONF) ./files/etc/config/linknx_mqtt $(1)/etc/config
 	$(INSTALL_DIR) $(1)/etc/init.d
 	$(INSTALL_BIN) ./files/etc/init.d/linknx-uci $(1)/etc/init.d
 	$(INSTALL_DIR) $(1)/usr/bin
 	$(INSTALL_BIN) ./files/usr/bin/linknxloaddata.lua $(1)/usr/bin
+	$(INSTALL_BIN) ./files/usr/bin/linknxhb.lua $(1)/usr/bin
 	$(INSTALL_BIN) ./files/usr/bin/linknxmapper.lua $(1)/usr/bin
 	$(INSTALL_BIN) ./files/usr/bin/linknxreadvalue.lua $(1)/usr/bin
 	$(INSTALL_BIN) ./files/usr/bin/linknxwritevalue.lua $(1)/usr/bin
